@@ -127,7 +127,7 @@
     <value>開啟</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>剩餘項目移除</value>
+    <value>清理解除安裝殘留</value>
   </data>
   <data name="groupBox1.Text" xml:space="preserve">
     <value>解除安裝後剩餘的文件及登錄表</value>

@@ -17,14 +17,14 @@ using Klocman.Tools;
 
 namespace BulkCrapUninstaller.Forms
 {
-    sealed partial class AboutBox : Form
+    sealed partial class AboutBox : VelaDialog
     {
         public AboutBox()
         {
             InitializeComponent();
+            ApplyVelaStyle(button1);
             Text = Program.ProductName;
-            labelName.Text = Program.ProductName + " · BCUninstaller";
-            Icon = Resources.Icon_Logo;
+            labelName.Text = Program.ProductName;
             using var logo = new Icon(Resources.Icon_Logo, 64, 64);
             var logoImage = logo.ToBitmap();
             imageBox.Image = logoImage;

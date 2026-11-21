@@ -110,7 +110,7 @@ namespace Klocman.Forms
 
             try
             {
-                if (targetBar.Value == value)
+                if (targetBar.Value == value && targetBar.Style != ProgressBarStyle.Marquee)
                     return;
 
                 var min = targetBar.Minimum;

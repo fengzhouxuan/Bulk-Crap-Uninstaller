@@ -127,10 +127,10 @@
     <value>打开</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>残余卸载</value>
+    <value>清理卸载残留</value>
   </data>
   <data name="groupBox1.Text" xml:space="preserve">
-    <value>卸载后留下的文件及注册表项列表</value>
+    <value>卸载后留下的文件和注册表项</value>
   </data>
   <data name="headerConfInfo.Text" xml:space="preserve">
     <value>检测这些残余是一个复杂的过程，可能会出错。因此，所有项目都会被给予一个置信度等级，最终决定权留给用户。有好和非常好置信度的项目通常可以安全删除，但你仍应仔细检查。</value>

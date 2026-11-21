@@ -31,10 +31,10 @@ namespace Klocman.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            progressBar = new ProgressBar();
+            progressBar = new VelaProgressBar();
             label1 = new Label();
             panel1 = new Panel();
-            progressBar2 = new ProgressBar();
+            progressBar2 = new VelaProgressBar();
             label2 = new Label();
             panel1.SuspendLayout();
             SuspendLayout();
@@ -136,8 +136,8 @@ namespace Klocman.Forms
 
         private Label label1;
         private Panel panel1;
-        private ProgressBar progressBar;
-        private ProgressBar progressBar2;
+        private VelaProgressBar progressBar;
+        private VelaProgressBar progressBar2;
         private Label label2;
     }
 }

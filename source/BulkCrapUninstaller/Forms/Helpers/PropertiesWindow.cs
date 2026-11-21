@@ -18,15 +18,14 @@ using UninstallTools;
 
 namespace BulkCrapUninstaller.Forms
 {
-    sealed partial class PropertiesWindow : Form
+    sealed partial class PropertiesWindow : VelaDialog
     {
         private readonly string _titleBeginning;
 
         public PropertiesWindow()
         {
             InitializeComponent();
-
-            Icon = Resources.Icon_Logo;
+            ApplyVelaStyle();
 
             _titleBeginning = Text;
         }

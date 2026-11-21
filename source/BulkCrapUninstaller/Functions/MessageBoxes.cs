@@ -562,8 +562,7 @@ namespace BulkCrapUninstaller.Functions
             return CustomMessageBox.ShowDialog(DefaultOwner,
                 new CmbBasicSettings(Localisable.MessageBoxes_Title_Search_for_updates,
                     string.Format(CultureInfo.CurrentCulture, Localisable.MessageBoxes_UpdateAskToDownload_Message, latestVersion),
-            //      string.Format(CultureInfo.CurrentCulture, Localisable.MessageBoxes_UpdateAskToDownload_Details, string.Join("\n- ", changes)),
-                    string.Format(CultureInfo.CurrentCulture, "Do you want to open the download page to get the latest version of BCUninstaller?"), //todo localize
+                    null,
                     SystemIcons.Information, Buttons.ButtonYes, Buttons.ButtonNo)) == CustomMessageBox.PressedButton.Middle;
         }
 
@@ -582,7 +581,7 @@ namespace BulkCrapUninstaller.Functions
             CustomMessageBox.ShowDialog(DefaultOwner,
                 new CmbBasicSettings(Localisable.MessageBoxes_Title_Search_for_updates,
                     Localisable.MessageBoxes_UpdateUptodate_Message,
-                    Localisable.MessageBoxes_UpdateUptodate_Details,
+                    null,
                     SystemIcons.Information, Buttons.ButtonClose));
         }
 

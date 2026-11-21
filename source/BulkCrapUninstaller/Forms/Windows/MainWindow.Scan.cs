@@ -8,6 +8,8 @@ using System.Globalization;
 using System.Windows.Forms;
 using BulkCrapUninstaller.Functions.ApplicationList;
 
+using static Klocman.Forms.VelaColors;
+
 namespace BulkCrapUninstaller.Forms
 {
     internal sealed partial class MainWindow

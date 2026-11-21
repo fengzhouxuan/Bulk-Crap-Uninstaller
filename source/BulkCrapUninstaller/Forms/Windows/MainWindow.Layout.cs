@@ -7,20 +7,12 @@ using System.Linq;
 using System.Windows.Forms;
 using BrightIdeasSoftware;
 using Klocman.Forms.Tools;
+using static Klocman.Forms.VelaColors;
 
 namespace BulkCrapUninstaller.Forms
 {
     internal sealed partial class MainWindow
     {
-        private static readonly Color WorkspaceBackground = Color.FromArgb(245, 246, 251);
-        private static readonly Color WorkspaceBorder = Color.FromArgb(223, 226, 239);
-        private static readonly Color HeadingText = Color.FromArgb(28, 30, 55);
-        private static readonly Color MutedText = Color.FromArgb(77, 83, 111);
-        private static readonly Color HeaderBackground = Color.FromArgb(239, 241, 250);
-        private static readonly Color PrimaryAction = Color.FromArgb(75, 57, 203);
-        private static readonly Color PrimaryActionHover = Color.FromArgb(58, 42, 172);
-        private static readonly Color SelectedRow = Color.FromArgb(232, 228, 253);
-
         private TableLayoutPanel _workspaceHeader;
         private SearchFieldPanel _searchSurface;
         private ToolStripMenuItem _filtersMenuItem;
@@ -211,6 +203,7 @@ namespace BulkCrapUninstaller.Forms
         private void ApplyWorkspaceTheme(bool useSystemStyle)
         {
             bool useNativeColors = useSystemStyle || SystemInformation.HighContrast;
+            Klocman.Forms.LoadingDialog.UseSystemTheme = useSystemStyle;
             ApplyTitleBarTheme(useNativeColors);
             _scanProgressView.UseNativeColors = useNativeColors;
             _scanProgressView.Invalidate();

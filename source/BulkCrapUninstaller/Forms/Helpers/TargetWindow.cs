@@ -17,7 +17,7 @@ using System.Windows.Forms;
 
 namespace BulkCrapUninstaller.Forms
 {
-    public partial class TargetWindow : Form
+    public partial class TargetWindow : VelaDialog
     {
         private Action<bool> _setMainWindowVisible;
 
@@ -26,6 +26,7 @@ namespace BulkCrapUninstaller.Forms
         public TargetWindow()
         {
             InitializeComponent();
+            ApplyVelaStyle();
 
             fileTargeter1.DirectoriesSelected += DirectoryTargeterDirectoriesSelected;
             windowTargeter1.PickingStarted += WindowTargeter1OnPickingStarted;

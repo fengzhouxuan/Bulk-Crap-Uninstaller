@@ -8,11 +8,12 @@ using System.Windows.Forms;
 
 namespace BulkCrapUninstaller.Forms
 {
-    internal partial class FeedbackWindow : Form
+    internal partial class FeedbackWindow : VelaDialog
     {
         public FeedbackWindow()
         {
             InitializeComponent();
+            ApplyVelaStyle();
             webBrowser.DocumentCompleted += webBrowser_DocumentCompleted;
             webBrowser.ScrollBarsEnabled = false;
             //webBrowser.Visible = false;

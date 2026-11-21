@@ -6,11 +6,11 @@
 
 ; =============================================================================
 
-#define MyAppName          "BCUninstaller"
-#define MyAppNameShort     "BCUninstaller"
+#define MyAppName          "Vela"
+#define MyAppNameShort     "Vela"
 #define MyAppPublisher     "Marcin Szeniak"
-#define MyAppURL           "https://github.com/Klocman/Bulk-Crap-Uninstaller"
-#define MyAppExeName       "BCUninstaller.exe"
+#define MyAppURL           "https://github.com/fengzhouxuan/Bulk-Crap-Uninstaller"
+#define MyAppExeName       "Vela.exe"
 #define CurrentYear        GetDateTimeString('yyyy','','')
 #define MyAppCopyright     "Copyright " + CurrentYear + " " + MyAppPublisher
 
@@ -21,7 +21,7 @@
 #include "CodeDependencies.iss"
 #else
 #define InputDir           "..\bin\publish"
-#define MainExePath        InputDir+'\win-x64\'+MyAppExeName
+#define MainExePath        InputDir+'\win-x64\BCUninstaller.exe'
 ; Portable page only works in normal mode
 #include "PortablePage.iss"
 #endif
@@ -36,7 +36,7 @@
 
 
 [Setup]
-AppId={{f4fef76c-1aa9-441c-af7e-d27f58d898d1}
+AppId={{6ec9e8a9-a2a8-4e16-a7ab-e6dd701ec302}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 AppVerName={#MyAppName} {#MyAppVersion}
@@ -51,9 +51,10 @@ DefaultDirName={commonpf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 UninstallDisplayIcon={app}\{#MyAppExeName}
 
-WizardImageFile=assets\bigImage.bmp
-WizardSmallImageFile=assets\smallImage.bmp
-SetupIconFile=assets\logo.ico
+WizardStyle=modern
+WizardImageFile=assets\vela-wizard.bmp
+WizardSmallImageFile=assets\vela-small.bmp
+SetupIconFile=..\source\BulkCrapUninstaller\Resources\vela.ico
 
 AllowNoIcons=yes
 DisableDirPage=no

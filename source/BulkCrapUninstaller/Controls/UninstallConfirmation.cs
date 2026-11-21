@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using BrightIdeasSoftware;
 using BulkCrapUninstaller.Functions;
+using Klocman.Extensions;
 using UninstallTools.Uninstaller;
 
 namespace BulkCrapUninstaller.Forms
@@ -14,10 +15,15 @@ namespace BulkCrapUninstaller.Forms
         {
             InitializeComponent();
 
+            objectListView1.OwnerDraw = true;
+            objectListView1.UseSubItemCheckBoxes = true;
+
             olvColumnEnabled.AspectGetter = rowObject => ((ConfirmationEntry) rowObject).Enabled;
+            olvColumnEnabled.AspectToStringConverter = value => (value as bool?).ToYesNo();
             olvColumnEnabled.AspectPutter = (rowObject, value) => ((ConfirmationEntry) rowObject).Enabled = (bool) value;
 
             olvColumnQuiet.AspectGetter = rowObject => ((ConfirmationEntry) rowObject).Entry.IsSilentPossible;
+            olvColumnQuiet.AspectToStringConverter = value => (value as bool?).ToYesNo();
             olvColumnQuiet.AspectPutter = (rowObject, value) =>
             {
                 var entry = ((ConfirmationEntry) rowObject).Entry;

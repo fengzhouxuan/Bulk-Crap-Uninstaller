@@ -168,7 +168,7 @@
   <data name="label7.Text" xml:space="preserve">
     <value>Puoi specificare comandi che saranno eseguiti prima e dopo la disinstallazione. Una linea corrisponde ad un comando e sarà eseguita come se usassi la finestra "Esegui...".
 
-BCU attenderà il completamento del comando in esecuzione prima dell'esecuzione del successivo.</value>
+Vela attenderà il completamento del comando in esecuzione prima dell'esecuzione del successivo.</value>
   </data>
   <data name="groupBoxExternal.Text" xml:space="preserve">
     <value>Applicazioni esterne</value>
@@ -183,11 +183,11 @@ BCU attenderà il completamento del comando in esecuzione prima dell'esecuzione 
     <value>Strumenti esterni</value>
   </data>
   <data name="labelProgramFolders.Text" xml:space="preserve">
-    <value>Puoi specificare cartelle personalizzate in cui installare le applicazioni (ad es. D:\Applicazioni). Le cartelle saranno usate da BCU durante la ricerca degli oggetti residui della disinstallazione, applicazioni non registrate e altro. Anche se non necessario, un elenco di queste cartelle permetterà a BCU di lavorare meglio.
+    <value>Puoi specificare cartelle personalizzate in cui installare le applicazioni (ad es. D:\Applicazioni). Le cartelle saranno usate da Vela durante la ricerca degli oggetti residui della disinstallazione, applicazioni non registrate e altro. Anche se non necessario, un elenco di queste cartelle permetterà a Vela di lavorare meglio.
 
 Le cartelle predefinite di WIndows sono sempre controllate, non hai bisogno di includerle nell'elenco.
 
-Usa il percorso completo delle cartelle, un percorso per linea. 
+Usa il percorso completo delle cartelle, un percorso per linea.
 I percorsi non validi e non esistenti saranno ignorati.</value>
   </data>
   <data name="groupBoxProgramFolders.Text" xml:space="preserve">
@@ -200,7 +200,7 @@ I percorsi non validi e non esistenti saranno ignorati.</value>
     <value>Varie</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>Impostazioni Bulk Crap Uninstaller</value>
+    <value>Impostazioni Vela</value>
   </data>
   <data name="checkBoxScanSteam.Text" xml:space="preserve">
     <value>Steam</value>

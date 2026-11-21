@@ -19,13 +19,14 @@ using Klocman.Binding.Settings;
 using Klocman.Extensions;
 using Klocman.Forms;
 using Klocman.Forms.Tools;
+using Klocman.Localising;
 using Klocman.Tools;
 using UninstallTools;
 using UninstallTools.Uninstaller;
 
 namespace BulkCrapUninstaller.Forms
 {
-    internal sealed partial class UninstallProgressWindow : Form
+    internal sealed partial class UninstallProgressWindow : VelaDialog
     {
         private readonly SettingBinder<Settings> _settings = Settings.Default.SettingBinder;
 
@@ -69,9 +70,8 @@ namespace BulkCrapUninstaller.Forms
 
             Opacity = 0;
 
-            Icon = Resources.Icon_Logo;
-
-            toolStrip1.Renderer = new ToolStripProfessionalRenderer(new StandardSystemColorTable());
+            ApplyVelaStyle();
+            progressBar1.UseSystemColors = Settings.Default.WindowUseSystemTheme;
 
             var windowHandle = Handle;
             // Shutdown blocking not available below Windows Vista
@@ -80,7 +80,7 @@ namespace BulkCrapUninstaller.Forms
                 _settings.Subscribe((sender, args) =>
                 {
                     if (args.NewValue)
-                        SleepControls.PreventSleepOrShutdown(windowHandle, "Bulk uninstallation is in progress.");
+                        SleepControls.PreventSleepOrShutdown(windowHandle, Text);
                     else SleepControls.AllowSleepOrShutdown(windowHandle);
                 }, settings => settings.UninstallPreventShutdown, this);
             }
@@ -108,6 +108,7 @@ namespace BulkCrapUninstaller.Forms
             olvColumnId.AspectName = nameof(BulkUninstallEntry.Id);
 
             olvColumnStatus.GroupKeyGetter = rowObject => (rowObject as BulkUninstallEntry)?.CurrentStatus;
+            olvColumnStatus.GroupKeyToTitleConverter = key => key is UninstallStatus status ? status.GetLocalisedName() : string.Empty;
             olvColumnName.GroupKeyGetter = rowObject => (rowObject as BulkUninstallEntry)?.UninstallerEntry.DisplayName.SafeNormalize().FirstOrDefault();
             olvColumnId.GroupKeyGetter = rowObject => (rowObject as BulkUninstallEntry)?.Id / 10;
 
@@ -219,8 +220,10 @@ namespace BulkCrapUninstaller.Forms
             }
 
             label1.Text = Localisable.UninstallProgressWindow_TaskDoneNextStep;
+            progressBar1.Style = ProgressBarStyle.Continuous;
             progressBar1.Value = progressBar1.Maximum;
             buttonClose.Text = Buttons.ButtonClose;
+            SetPrimaryAction(buttonClose, true);
             pictureBox1.Image = Resources.check;
             buttonClose.Enabled = true;
 
@@ -264,6 +267,7 @@ namespace BulkCrapUninstaller.Forms
                     Localisable.UninstallProgressWindow_Uninstalling, progress, uninstList.Count, statusString);
 
                 buttonClose.Text = Buttons.ButtonCancel;
+                SetPrimaryAction(buttonClose, false);
                 progressBar1.Value = Math.Max(0, progress - 1);
                 progressBar1.Style = ProgressBarStyle.Continuous;
             }

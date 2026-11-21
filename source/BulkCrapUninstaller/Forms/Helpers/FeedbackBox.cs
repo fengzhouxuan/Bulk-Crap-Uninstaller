@@ -9,7 +9,7 @@ using BulkCrapUninstaller.Properties;
 
 namespace BulkCrapUninstaller.Forms
 {
-    public partial class FeedbackBox : Form
+    public partial class FeedbackBox : VelaDialog
     {
         public static void ShowFeedbackBox(Form parent, bool showDisableCheckbox)
         {
@@ -21,7 +21,6 @@ namespace BulkCrapUninstaller.Forms
                 f.checkBoxNeverShow.Visible = showDisableCheckbox;
                 f.checkBoxNeverShow.Enabled = showDisableCheckbox;
 
-                f.Icon = parent.Icon;
                 f.Owner = parent;
                 f.StartPosition = FormStartPosition.CenterParent;
 
@@ -32,6 +31,7 @@ namespace BulkCrapUninstaller.Forms
         private FeedbackBox()
         {
             InitializeComponent();
+            ApplyVelaStyle(buttonClose);
 
             if (DesignMode) return;
 

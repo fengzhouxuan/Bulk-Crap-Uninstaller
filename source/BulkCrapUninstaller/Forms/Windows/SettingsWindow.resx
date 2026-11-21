@@ -1487,9 +1487,9 @@
     <value>0</value>
   </data>
   <data name="label7.Text" xml:space="preserve">
-    <value>You can specify commands that will run before and after uninstallation. One line equals to one command and will be executed as if you used the "Run..." dialog. 
+    <value>You can specify commands that will run before and after uninstallation. One line equals to one command and will be executed as if you used the "Run..." dialog.
 
-BCU will wait until the currently running command completes before executing the next one.</value>
+Vela will wait until the currently running command completes before executing the next one.</value>
   </data>
   <data name="&gt;&gt;label7.Name" xml:space="preserve">
     <value>label7</value>
@@ -2572,7 +2572,7 @@ BCU will wait until the currently running command completes before executing the
     <value>0</value>
   </data>
   <data name="labelProgramFolders.Text" xml:space="preserve">
-    <value>You can specify custom folders you install your applications into (e.g. D:\Applications). Those folders will be used by BCU to search for uninstallation leftovers, unregistered applications and a few other things. While it is not necessary, a list of these folders will let BCU work better.
+    <value>You can specify custom folders you install your applications into (e.g. D:\Applications). Those folders will be used by Vela to search for uninstallation leftovers, unregistered applications and a few other things. While it is not necessary, a list of these folders will let Vela work better.
 
 The default Windows folders are always scanned, you do not need to include them in this list.
 
@@ -2942,7 +2942,7 @@ Use full directory paths, one path per line. Invalid paths and non-existing dire
     <value>CenterParent</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>Bulk Crap Uninstaller Settings</value>
+    <value>Vela Settings</value>
   </data>
   <data name="&gt;&gt;usageTracker1.Name" xml:space="preserve">
     <value>usageTracker1</value>

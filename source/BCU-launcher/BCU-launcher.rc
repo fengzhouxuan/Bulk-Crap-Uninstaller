@@ -52,7 +52,7 @@ END
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDI_ICON1               ICON                    "..\\BulkCrapUninstaller\\Resources\\logo.ico"
+IDI_ICON1               ICON                    "..\\BulkCrapUninstaller\\Resources\\vela.ico"
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -78,12 +78,12 @@ BEGIN
         BLOCK "080904b0"
         BEGIN
             VALUE "CompanyName", "Marcin Szeniak"
-            VALUE "FileDescription", "BCUninstaller launcher"
+            VALUE "FileDescription", "Vela launcher"
             VALUE "FileVersion", "1.2.0.0"
-            VALUE "InternalName", "BCUninstaller.exe"
+            VALUE "InternalName", "Vela.exe"
             VALUE "LegalCopyright", "Copyright (C) 2023"
-            VALUE "OriginalFilename", "BCUninstaller.exe"
-            VALUE "ProductName", "BCUninstaller launcher"
+            VALUE "OriginalFilename", "Vela.exe"
+            VALUE "ProductName", "Vela launcher"
             VALUE "ProductVersion", "1.2.0.0"
         END
     END

@@ -9,6 +9,7 @@ using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 using Klocman.Tools;
+using static Klocman.Forms.VelaColors;
 
 namespace Klocman.Forms
 {
@@ -26,6 +27,21 @@ namespace Klocman.Forms
 
             Text = title;
             label1.Text = title;
+            bool useSystemColors = UseSystemTheme || SystemInformation.HighContrast;
+            progressBar.UseSystemColors = progressBar2.UseSystemColors = useSystemColors;
+            if (!useSystemColors)
+            {
+                BackColor = WorkspaceBorder;
+                panel1.BackColor = Color.White;
+                panel1.Padding = new Padding(LogicalToDeviceUnits(18), LogicalToDeviceUnits(15),
+                    LogicalToDeviceUnits(18), LogicalToDeviceUnits(15));
+                label1.ForeColor = HeadingText;
+                label2.ForeColor = MutedText;
+                progressBar.Height = progressBar2.Height = LogicalToDeviceUnits(14);
+                label1.AutoSize = label2.AutoSize = false;
+                label1.Height = LogicalToDeviceUnits(27);
+                label2.Height = LogicalToDeviceUnits(30);
+            }
 
             UseWaitCursor = true;
 
@@ -60,6 +76,7 @@ namespace Klocman.Forms
         }
 
         public static Form DefaultOwner { get; set; }
+        public static bool UseSystemTheme { get; set; }
 
         public Exception Error { get; private set; }
 

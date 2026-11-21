@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -202,7 +202,7 @@
     <value>更改移除設定</value>
   </data>
   <data name="label6.Text" xml:space="preserve">
-    <value>開始移除前，請確保以下資訊正確無誤。這是最後的機會了！</value>
+    <value>開始解除安裝前，請確認應用程式和選項。</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>開始新的移除任務</value>

@@ -17,7 +17,7 @@ using Klocman.Localising;
 
 namespace BulkCrapUninstaller.Forms
 {
-    public partial class SettingsWindow : Form
+    public partial class SettingsWindow : VelaDialog
     {
         private readonly SettingBinder<Settings> _settings = Settings.Default.SettingBinder;
         private bool _restartNeeded;
@@ -28,6 +28,7 @@ namespace BulkCrapUninstaller.Forms
         public SettingsWindow()
         {
             InitializeComponent();
+            ApplyVelaStyle(button2);
         }
 
         protected override void OnLoad(EventArgs e)
@@ -35,8 +36,6 @@ namespace BulkCrapUninstaller.Forms
             base.OnLoad(e);
 
             if (DesignMode) return;
-
-            Icon = Resources.Icon_Logo;
 
             _settings.BindControl(checkBoxLoud, x => x.MessagesAskRemoveLoudItems, this);
             _settings.BindControl(checkBoxShowAllBadJunk, x => x.MessagesShowAllBadJunk, this);

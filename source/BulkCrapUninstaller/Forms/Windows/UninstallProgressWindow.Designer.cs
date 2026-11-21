@@ -35,7 +35,7 @@ namespace BulkCrapUninstaller.Forms
         {
             components = new Container();
             ComponentResourceManager resources = new ComponentResourceManager(typeof(UninstallProgressWindow));
-            progressBar1 = new ProgressBar();
+            progressBar1 = new Klocman.Forms.VelaProgressBar();
             label1 = new Label();
             buttonClose = new Button();
             olvColumnStatus = new OLVColumn();
@@ -369,7 +369,7 @@ namespace BulkCrapUninstaller.Forms
 
         #endregion
 
-        private ProgressBar progressBar1;
+        private Klocman.Forms.VelaProgressBar progressBar1;
         private Label label1;
         private Button buttonClose;
         private OLVColumn olvColumnStatus;

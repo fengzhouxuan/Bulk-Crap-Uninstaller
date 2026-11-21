@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using BulkCrapUninstaller.Functions;
@@ -12,11 +13,13 @@ using Klocman.Localising;
 using UninstallTools;
 using UninstallTools.Factory;
 using UninstallTools.Uninstaller;
+using static Klocman.Forms.VelaColors;
 
 namespace BulkCrapUninstaller.Forms
 {
-    public partial class BeginUninstallTaskWizard : Form
+    public partial class BeginUninstallTaskWizard : VelaDialog
     {
+        private readonly string _nextText;
         private bool _anyRelatedUninstallers;
         private List<ApplicationUninstallerEntry> _otherUninstallers;
         private int _previousPageNumber;
@@ -26,11 +29,40 @@ namespace BulkCrapUninstaller.Forms
         public BeginUninstallTaskWizard()
         {
             InitializeComponent();
+            ApplyVelaStyle(buttonNext, p1Heading, label1, label2, label5, label6);
 
-            Icon = MessageBoxes.DefaultOwner.Icon;
+            _nextText = buttonNext.Text;
+            button2.Hide();
+            AcceptButton = buttonNext;
             DialogResult = DialogResult.Cancel;
 
             tabControl1.TabIndex = 0;
+            if (FormBorderStyle == FormBorderStyle.None)
+                StyleReview();
+        }
+
+        private void StyleReview()
+        {
+            tableLayoutPanel1.Dock = DockStyle.Top;
+            tableLayoutPanel1.CellBorderStyle = TableLayoutPanelCellBorderStyle.None;
+            tableLayoutPanel1.BackColor = WorkspaceBackground;
+            int lineHeight = LogicalToDeviceUnits(38);
+            int appListHeight = LogicalToDeviceUnits(60);
+            tableLayoutPanel1.Height = tableLayoutPanel1.Padding.Vertical + appListHeight +
+                (tableLayoutPanel1.RowCount - 1) * lineHeight;
+            for (int row = 0; row < tableLayoutPanel1.RowCount; row++)
+            {
+                var style = tableLayoutPanel1.RowStyles[row];
+                style.SizeType = SizeType.Absolute;
+                style.Height = row == 0 ? appListHeight : lineHeight;
+            }
+            foreach (Label label in tableLayoutPanel1.Controls)
+            {
+                label.Dock = DockStyle.Fill;
+                label.Padding = new Padding(LogicalToDeviceUnits(12), 0, LogicalToDeviceUnits(12), 0);
+                label.TextAlign = ContentAlignment.MiddleLeft;
+                label.ForeColor = tableLayoutPanel1.GetColumn(label) == 0 ? MutedText : HeadingText;
+            }
         }
 
         private int PageNumber
@@ -55,7 +87,10 @@ namespace BulkCrapUninstaller.Forms
 
         private void buttonNext_Click(object sender, EventArgs e)
         {
-            PageNumber = Math.Min(tabControl1.TabCount - 1, PageNumber + 1);
+            if (PageNumber == tabControl1.TabCount - 1)
+                button2_Click(sender, e);
+            else
+                PageNumber++;
         }
 
         private void buttonPrev_Click(object sender, EventArgs e)
@@ -199,7 +234,7 @@ namespace BulkCrapUninstaller.Forms
 
             labelProgress.Text = PageNumber + 1 + " / " + tabControl1.TabCount;
             buttonPrev.Enabled = PageNumber > 0 && (PageNumber != 1 || _anyRelatedUninstallers);
-            buttonNext.Enabled = PageNumber + 1 < tabControl1.TabCount;
+            buttonNext.Text = PageNumber == tabControl1.TabCount - 1 ? button2.Text : _nextText;
 
             UseWaitCursor = false;
 

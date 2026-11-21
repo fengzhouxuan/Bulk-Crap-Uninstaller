@@ -112,20 +112,26 @@ namespace BulkCrapUninstaller.Functions.Tools
             }
         }
 
-        public static string LatestReleaseUrl = "https://github.com/Klocman/Bulk-Crap-Uninstaller/releases/latest";
+        private const string ReleasesUrl = "https://github.com/fengzhouxuan/Bulk-Crap-Uninstaller/releases";
+        private const string LatestReleaseUrl = ReleasesUrl + "/latest";
 
-        public static Version CheckLatestVersion()
+        private static Version CheckLatestVersion()
         {
-            // Should result in something like "https://github.com/Klocman/Bulk-Crap-Uninstaller/releases/tag/v4.1"
-            var url = GetFinalRedirect(LatestReleaseUrl);
-            if (url != null)
-            {
-                var i = url.LastIndexOf('/');
-                var tag = url.Substring(i).TrimStart('/', 'v');
-                return new Version(tag);
-            }
+            using var client = new HttpClient { Timeout = TimeSpan.FromSeconds(10) };
+            using var request = new HttpRequestMessage(HttpMethod.Head, LatestReleaseUrl);
+            using var response = client.Send(request);
+            response.EnsureSuccessStatusCode();
 
-            return null;
+            var url = response.RequestMessage?.RequestUri?.GetLeftPart(UriPartial.Path);
+            if (string.Equals(url, ReleasesUrl, StringComparison.OrdinalIgnoreCase))
+                return null;
+
+            const string tagPrefix = ReleasesUrl + "/tag/";
+            if (url == null || !url.StartsWith(tagPrefix, StringComparison.OrdinalIgnoreCase) ||
+                !Version.TryParse(url[tagPrefix.Length..].TrimStart('v', 'V'), out var version))
+                throw new WebException("The release page did not contain a valid version.");
+
+            return version;
         }
 
         /// <summary>
@@ -137,11 +143,7 @@ namespace BulkCrapUninstaller.Functions.Tools
             try
             {
                 var latestVersion = CheckLatestVersion();
-                if (latestVersion == null)
-                {
-                    throw new WebException("Failed to get version from URL");
-                }
-                else if (latestVersion > currentVersion)
+                if (latestVersion != null && latestVersion > currentVersion)
                 {
                     updateVersion = latestVersion;
                     Console.WriteLine("A new version is available: " + latestVersion);
@@ -160,29 +162,5 @@ namespace BulkCrapUninstaller.Functions.Tools
             }
         }
 
-        private static string GetFinalRedirect(string url)
-        {
-            if (string.IsNullOrWhiteSpace(url))
-                return null;
-
-            try
-            {
-                // https://stackoverflow.com/a/79339216
-                using (var client = new HttpClient(new HttpClientHandler { AllowAutoRedirect = true }))
-                {
-                    client.Timeout = new TimeSpan(0, 0, 10);
-                    using (var response = client.SendAsync(new HttpRequestMessage(HttpMethod.Head, url)))
-                    {
-                        var result = response.Result.RequestMessage?.RequestUri;
-                        return result?.ToString();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"GetFinalRedirect failed for url=[{url}] with exception: {ex}");
-                return null;
-            }
-        }
     }
 }

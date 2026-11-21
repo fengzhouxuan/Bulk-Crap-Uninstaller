@@ -105,7 +105,9 @@ namespace BulkCrapUninstaller
                 var dir = AssemblyLocation;
                 // Check if we are bundled with a launcher and place settings in the same folder as the launcher, so they are shared between different builds
                 if (dir.Name.StartsWith("win-") && dir.Parent != null &&
-                    File.Exists(Path.Combine(dir.Parent.FullName, exeName + ".exe"))) dir = dir.Parent;
+                    (File.Exists(Path.Combine(dir.Parent.FullName, ProductName + ".exe")) ||
+                     File.Exists(Path.Combine(dir.Parent.FullName, exeName + ".exe"))))
+                    dir = dir.Parent;
 
                 var settingsDir = dir.FullName;
                 ConfigFileFullname = Path.Combine(settingsDir, exeName + ".settings");
@@ -177,7 +179,7 @@ namespace BulkCrapUninstaller
         private static void GetInstalledRegKey()
         {
             // This GUID is the AppID from the installer. It can end with an optional identifier if the installer had to create a new key because of a conflict.
-            const string appId = "f4fef76c-1aa9-441c-af7e-d27f58d898d1";
+            const string appId = "6ec9e8a9-a2a8-4e16-a7ab-e6dd701ec302";
             const string regUninstallersKeyDirect = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
 
             try
