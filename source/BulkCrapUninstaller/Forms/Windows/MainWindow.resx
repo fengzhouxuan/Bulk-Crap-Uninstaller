@@ -3386,4 +3386,8 @@
   <data name="WorkspaceMenu" xml:space="preserve"><value>&amp;Menu</value></data>
   <data name="WorkspaceSelection" xml:space="preserve"><value>Selection</value></data>
   <data name="WorkspaceRefresh" xml:space="preserve"><value>Refresh</value></data>
+  <data name="CaptionMinimize" xml:space="preserve"><value>Minimize</value></data>
+  <data name="CaptionMaximize" xml:space="preserve"><value>Maximize</value></data>
+  <data name="CaptionRestore" xml:space="preserve"><value>Restore</value></data>
+  <data name="CaptionClose" xml:space="preserve"><value>Close</value></data>
 </root>

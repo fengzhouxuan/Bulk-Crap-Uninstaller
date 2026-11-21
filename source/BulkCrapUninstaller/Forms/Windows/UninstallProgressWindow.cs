@@ -1,6 +1,7 @@
 ﻿/*
     Copyright (c) 2017 Marcin Szeniak (https://github.com/Klocman/)
     Apache License Version 2.0
+    Modified for Vela branding.
 */
 
 using System;
@@ -64,7 +65,7 @@ namespace BulkCrapUninstaller.Forms
         {
             InitializeComponent();
 
-            Text += " - Bulk Crap Uninstaller";
+            Text += " - " + Program.ProductName;
 
             Opacity = 0;
 

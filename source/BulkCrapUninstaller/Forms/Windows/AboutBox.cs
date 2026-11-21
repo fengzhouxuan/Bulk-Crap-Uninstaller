@@ -1,6 +1,7 @@
 ﻿/*
     Copyright (c) 2017 Marcin Szeniak (https://github.com/Klocman/)
     Apache License Version 2.0
+    Modified for Vela branding.
 */
 
 using System;
@@ -21,6 +22,14 @@ namespace BulkCrapUninstaller.Forms
         public AboutBox()
         {
             InitializeComponent();
+            Text = Program.ProductName;
+            labelName.Text = Program.ProductName + " · BCUninstaller";
+            Icon = Resources.Icon_Logo;
+            using var logo = new Icon(Resources.Icon_Logo, 64, 64);
+            var logoImage = logo.ToBitmap();
+            imageBox.Image = logoImage;
+            imageBox.ImageAlign = ContentAlignment.MiddleCenter;
+            imageBox.Disposed += (_, _) => logoImage.Dispose();
             labelVersion.Text += AssemblyVersion;
             labelCopyright.Text = AssemblyCopyright;
             labelCompanyName.Text = AssemblyCompany;

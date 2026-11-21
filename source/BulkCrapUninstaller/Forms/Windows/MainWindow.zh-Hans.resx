@@ -606,4 +606,8 @@
   <data name="WorkspaceMenu" xml:space="preserve"><value>菜单</value></data>
   <data name="WorkspaceSelection" xml:space="preserve"><value>选择</value></data>
   <data name="WorkspaceRefresh" xml:space="preserve"><value>刷新</value></data>
+  <data name="CaptionMinimize" xml:space="preserve"><value>最小化</value></data>
+  <data name="CaptionMaximize" xml:space="preserve"><value>最大化</value></data>
+  <data name="CaptionRestore" xml:space="preserve"><value>还原</value></data>
+  <data name="CaptionClose" xml:space="preserve"><value>关闭</value></data>
 </root>

@@ -80,6 +80,7 @@ namespace BulkCrapUninstaller.Forms
 
             InitializeComponent();
             InitializeWorkspaceLayout();
+            InitializeTitleBar();
 
             // Setup settings
             _setMan = new SettingTools(Settings.Default.SettingBinder, this);
@@ -162,7 +163,7 @@ namespace BulkCrapUninstaller.Forms
             {
                 isProbablyARM64 = true;
             }
-            MainTitleBarText = Text.Append(" v", Program.AssemblyVersion.ToString(Program.AssemblyVersion.Build != 0 ? 3 : 2))
+            MainTitleBarText = Program.ProductName.Append(" v", Program.AssemblyVersion.ToString(Program.AssemblyVersion.Build != 0 ? 3 : 2))
                 .AppendIf(!Program.IsInstalled, " ", Localisable.StrIsPortable)
                 .AppendIf(ProcessTools.Is64BitProcess, " ", Localisable.Str64Bit)
                 .AppendIf(isProbablyARM64, " ", "ARM")
@@ -221,6 +222,8 @@ namespace BulkCrapUninstaller.Forms
         protected override void OnDpiChanged(DpiChangedEventArgs e)
         {
             base.OnDpiChanged(e);
+            if (_workspaceTitleBar != null)
+                SizeTitleBar();
 
             try
             {
@@ -475,7 +478,8 @@ namespace BulkCrapUninstaller.Forms
                 UseWaitCursor = value;
 
                 foreach (Control control in Controls)
-                    control.Enabled = !value;
+                    if (control != _workspaceTitleBar)
+                        control.Enabled = !value;
 
                 Refresh();
             });

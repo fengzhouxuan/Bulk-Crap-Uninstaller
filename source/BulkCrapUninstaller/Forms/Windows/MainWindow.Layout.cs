@@ -44,7 +44,7 @@ namespace BulkCrapUninstaller.Forms
             _workspaceHeader = new TableLayoutPanel
             {
                 Dock = DockStyle.Top,
-                Height = LogicalToDeviceUnits(92),
+                Height = LogicalToDeviceUnits(80),
                 Padding = ScalePadding(26, 0),
                 ColumnCount = 3,
                 RowCount = 1,
@@ -211,6 +211,7 @@ namespace BulkCrapUninstaller.Forms
         private void ApplyWorkspaceTheme(bool useSystemStyle)
         {
             bool useNativeColors = useSystemStyle || SystemInformation.HighContrast;
+            ApplyTitleBarTheme(useNativeColors);
             BackColor = useNativeColors ? SystemColors.Control : WorkspaceBackground;
             settingsSidebarPanel.BackColor = useNativeColors ? SystemColors.Control : Color.White;
             _workspaceHeader.BackColor = BackColor;

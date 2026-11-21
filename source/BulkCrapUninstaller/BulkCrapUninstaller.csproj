@@ -3,10 +3,10 @@
 		<OutputType>WinExe</OutputType>
 		<AssemblyName>BCUninstaller</AssemblyName>
 		
-		<Product>Bulk Crap Uninstaller</Product>
-		<AssemblyTitle>Remove large amounts of unwanted applications quickly</AssemblyTitle>
+		<Product>Vela</Product>
+		<AssemblyTitle>Vela</AssemblyTitle>
 
-		<ApplicationIcon>Resources\logo.ico</ApplicationIcon>
+		<ApplicationIcon>Resources\vela.ico</ApplicationIcon>
 		<StartupObject>BulkCrapUninstaller.EntryPoint</StartupObject>
 	</PropertyGroup>
 

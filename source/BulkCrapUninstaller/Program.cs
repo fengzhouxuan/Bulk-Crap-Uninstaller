@@ -1,6 +1,7 @@
 ﻿/*
     Copyright (c) 2017 Marcin Szeniak (https://github.com/Klocman/)
     Apache License Version 2.0
+    Modified for Vela branding.
 */
 
 using System;
@@ -47,6 +48,8 @@ namespace BulkCrapUninstaller
                 return _assemblyLocation;
             }
         }
+
+        internal const string ProductName = "Vela";
 
         public static Version AssemblyVersion => Assembly.GetExecutingAssembly().GetName().Version;
 
@@ -206,59 +209,6 @@ namespace BulkCrapUninstaller
             catch
             {
                 _installedRegistryKeyName = String.Empty;
-            }
-        }
-
-        public static void StartLogCleaner()
-        {
-            try
-            {
-                const string cleanerName = "CleanLogs.bat";
-                var cleanerPath = Path.Combine(AssemblyLocation.FullName, cleanerName);
-
-                if (!File.Exists(cleanerPath))
-                {
-                    Console.WriteLine(@"WARNING: CleanLogs.bat doesn't exist, can't clean logs.");
-                    return;
-                }
-
-                var cleanerUri = PathToUri(cleanerPath);
-                if (cleanerUri.IsUnc)
-                {
-                    // 'cmd.exe /c start' doesn't work with UNC paths, script has to run in foreground.
-                    Process.Start(new ProcessStartInfo(cleanerPath) { UseShellExecute = true });
-                }
-                else
-                {
-                    // Run cleanup script in minimized cmd window
-                    var ps = new ProcessStartInfo
-                    {
-                        WorkingDirectory = AssemblyLocation.FullName,
-                        FileName = "cmd.exe",
-                        Arguments = "/c start /min " + cleanerName,
-                        UseShellExecute = true,
-                        WindowStyle = ProcessWindowStyle.Minimized
-                    };
-                    Process.Start(ps);
-                }
-            }
-            catch (Exception ex)
-            {
-                // Ignore errors, not critical
-                Console.WriteLine(ex);
-            }
-        }
-
-        private static Uri PathToUri(string filePath)
-        {
-            try
-            {
-                return new Uri(filePath);
-            }
-            catch (UriFormatException)
-            {
-                filePath = Path.GetFullPath(filePath);
-                return new Uri(filePath);
             }
         }
 

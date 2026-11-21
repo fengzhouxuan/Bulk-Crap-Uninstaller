@@ -1,6 +1,7 @@
 /*
     Copyright (c) 2017 Marcin Szeniak (https://github.com/Klocman/)
     Apache License Version 2.0
+    Modified for Vela branding.
 */
 
 using System;
@@ -8,11 +9,11 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
 using BulkCrapUninstaller.Forms;
+using BulkCrapUninstaller.Properties;
 using Klocman;
 using Klocman.Extensions;
 using Klocman.Forms;
@@ -26,7 +27,7 @@ namespace BulkCrapUninstaller
     {
         public static bool IsRestarting { get; internal set; }
 
-        private const string MUTEX_NAME = @"Global\BCU-singleinstance";
+        private const string MUTEX_NAME = @"Global\Vela-singleinstance";
         private static Mutex _mutex;
 
         [STAThread]
@@ -83,9 +84,6 @@ namespace BulkCrapUninstaller
             if (!IsRestarting && !_mutex.SafeWaitHandle.IsClosed)
                 _mutex.ReleaseMutex();
             _mutex.Dispose();
-            // If running as portable, delete any leftovers from the system
-            if (!IsRestarting && !Program.IsInstalled && !Program.EnableDebug)
-                Program.StartLogCleaner();
         }
 
         public static void Restart()
@@ -110,25 +108,25 @@ namespace BulkCrapUninstaller
         {
             try
             {
-                var location = Assembly.GetAssembly(typeof(EntryPoint))!.Location;
-                if (location.EndsWith(".dll")) location = location.Substring(0, location.Length - 3) + "exe";
-                var otherBcu = Process.GetProcesses().FirstOrDefault(x =>
+                var location = Environment.ProcessPath;
+                var otherInstance = Process.GetProcesses().FirstOrDefault(x =>
                 {
                     try
                     {
-                        return string.Equals(x.MainModule!.FileName, location, StringComparison.OrdinalIgnoreCase);
+                        return x.Id != Environment.ProcessId && x.MainWindowHandle != IntPtr.Zero &&
+                               string.Equals(x.MainModule?.FileName, location, StringComparison.OrdinalIgnoreCase);
                     }
                     catch
                     {
                         return false;
                     }
                 });
-                var mainWind = otherBcu?.MainWindowHandle;
+                var mainWind = otherInstance?.MainWindowHandle;
                 if (mainWind != null)
                 {
                     try
                     {
-                        NativeMethods.SetForegroundWindow(otherBcu.MainWindowHandle.ToInt32());
+                        NativeMethods.SetForegroundWindow(mainWind.Value);
                     }
                     catch (Exception ex)
                     {
@@ -137,7 +135,8 @@ namespace BulkCrapUninstaller
                 }
                 else
                 {
-                    CustomMessageBox.ShowDialog(null, new CmbBasicSettings("BCUninstaller is already running", "BCUninstaller is already running", "You can start only one instance of BCUninstaller. Close previous instances and try again. If you don't see the BCUninstaller window or it's not responding, try closing it with Task Manager.", DrawingTools.ExtractAssociatedIcon(location), "OK"));
+                    var title = Program.ProductName + " is already running";
+                    CustomMessageBox.ShowDialog(null, new CmbBasicSettings(title, title, "Close the other instance before opening this copy.", Resources.Icon_Logo, "OK"));
                 }
             }
             catch (Exception ex)
@@ -149,7 +148,7 @@ namespace BulkCrapUninstaller
         private static class NativeMethods
         {
             [DllImport("user32.dll")]
-            public static extern int SetForegroundWindow(int hwnd);
+            public static extern int SetForegroundWindow(IntPtr hwnd);
         }
 
         private static void SetupDependancies()
