@@ -18,7 +18,6 @@ namespace BulkCrapUninstaller.Forms
 
         private TableLayoutPanel _workspaceHeader;
         private Panel _searchSurface;
-        private ToolStripRenderer _workspaceRenderer;
 
         private Padding ScalePadding(int horizontal, int vertical)
         {
@@ -52,6 +51,7 @@ namespace BulkCrapUninstaller.Forms
             label1.Dock = DockStyle.Fill;
             label1.AutoSize = false;
             label1.AutoEllipsis = true;
+            label1.UseCompatibleTextRendering = true;
             label1.TextAlign = ContentAlignment.MiddleLeft;
             label1.Margin = Padding.Empty;
             _workspaceHeader.Controls.Add(label1, 0, 0);
@@ -161,10 +161,10 @@ namespace BulkCrapUninstaller.Forms
             }
             else
             {
-                _workspaceRenderer ??= new WorkspaceStripRenderer(toolStripButtonUninstall);
-                toolStrip.Renderer = _workspaceRenderer;
-                menuStrip.Renderer = _workspaceRenderer;
-                statusStrip1.Renderer = _workspaceRenderer;
+                var renderer = new WorkspaceStripRenderer(toolStripButtonUninstall);
+                toolStrip.Renderer = renderer;
+                menuStrip.Renderer = renderer;
+                statusStrip1.Renderer = renderer;
             }
         }
 
