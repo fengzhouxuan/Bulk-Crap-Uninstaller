@@ -460,7 +460,7 @@
     <value>正在处理{0}</value>
   </data>
   <data name="Progress_GatherUninstallerInfo" xml:space="preserve">
-    <value>正在生成丢失的卸载程序信息...</value>
+    <value>正在补充应用信息…</value>
   </data>
   <data name="Progress_DriveScan" xml:space="preserve">
     <value>正在扫描驱动器以查找应用程序...</value>

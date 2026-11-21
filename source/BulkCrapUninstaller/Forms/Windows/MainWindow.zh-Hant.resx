@@ -601,4 +601,5 @@
   <data name="CaptionMaximize" xml:space="preserve"><value>最大化</value></data>
   <data name="CaptionRestore" xml:space="preserve"><value>還原</value></data>
   <data name="CaptionClose" xml:space="preserve"><value>關閉</value></data>
+  <data name="WorkspaceScanTitle" xml:space="preserve"><value>正在掃描應用程式</value></data>
 </root>

@@ -458,7 +458,7 @@
     <value>正在處理{0}</value>
   </data>
   <data name="Progress_GatherUninstallerInfo" xml:space="preserve">
-    <value>正在產生遺失的移除程式資訊...</value>
+    <value>正在補充應用程式資訊…</value>
   </data>
   <data name="Progress_DriveScan" xml:space="preserve">
     <value>正在掃描硬碟以尋找應用程式...</value>

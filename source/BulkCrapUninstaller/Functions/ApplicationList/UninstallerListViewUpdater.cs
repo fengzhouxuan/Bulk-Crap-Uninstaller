@@ -1,19 +1,20 @@
 ﻿/*
     Copyright (c) 2017 Marcin Szeniak (https://github.com/Klocman/)
     Apache License Version 2.0
+    Modified to report scans in the Vela main window.
 */
 
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using BrightIdeasSoftware;
 using BulkCrapUninstaller.Forms;
 using BulkCrapUninstaller.Properties;
 using Klocman.Binding.Settings;
 using Klocman.Extensions;
-using Klocman.Forms;
 using Klocman.Forms.Tools;
 using Klocman.IO;
 using Klocman.Tools;
@@ -26,13 +27,14 @@ namespace BulkCrapUninstaller.Functions.ApplicationList
 {
     internal class UninstallerListViewUpdater : IDisposable
     {
-        private readonly UninstallerIconGetter _iconGetter;
+        private UninstallerIconGetter _iconGetter;
         private readonly TypedObjectListView<ApplicationUninstallerEntry> _listView;
         private readonly MainWindow _reference;
         readonly SettingBinder<Settings> _settings = Settings.Default.SettingBinder;
         private IEnumerable<ApplicationUninstallerEntry> _allUninstallers;
         private bool _firstRefresh = true;
         private bool _listRefreshIsRunning;
+        private CancellationTokenSource _refreshCancellation;
 
         internal UninstallerListViewUpdater(MainWindow reference)
         {
@@ -40,7 +42,7 @@ namespace BulkCrapUninstaller.Functions.ApplicationList
             _listView = new TypedObjectListView<ApplicationUninstallerEntry>(reference.uninstallerObjectListView);
 
             _iconGetter = new UninstallerIconGetter();
-            _reference.olvColumnDisplayName.ImageGetter = _iconGetter.ColumnImageGetter;
+            _reference.olvColumnDisplayName.ImageGetter = entry => _iconGetter.ColumnImageGetter(entry);
 
             // Refresh items marked as invalid after corresponding setting change
             _settings.Subscribe((x, y) =>
@@ -102,6 +104,7 @@ namespace BulkCrapUninstaller.Functions.ApplicationList
 
         public void Dispose()
         {
+            _refreshCancellation?.Cancel();
             _iconGetter?.Dispose();
         }
 
@@ -155,66 +158,93 @@ namespace BulkCrapUninstaller.Functions.ApplicationList
 
         public void InitiateListRefresh()
         {
+            _reference.SafeInvoke(StartListRefresh);
+        }
+
+        private async void StartListRefresh()
+        {
             if (ListRefreshIsRunning || CheckIsAppDisposed())
                 return;
 
-            ListRefreshIsRunning = true;
+            using var cancellation = new CancellationTokenSource();
+            _refreshCancellation = cancellation;
+            ScanProgress pendingProgress = null;
+            using var progressTimer = new System.Windows.Forms.Timer { Interval = 65 };
+            progressTimer.Tick += (_, _) =>
+            {
+                if (!CheckIsAppDisposed())
+                    _reference.UpdateScanProgress(Interlocked.Exchange(ref pendingProgress, null));
+            };
+            bool completed = false;
+            Exception error = null;
+            ScanResult result = null;
+            try
+            {
+                ListRefreshIsRunning = true;
+                _reference.ShowScanProgress();
+                _reference.LockApplication(true);
+                progressTimer.Start();
+                var token = cancellation.Token;
+                result = await Task.Run(() => ScanApplications(
+                    progress => Interlocked.Exchange(ref pendingProgress, progress), token), token);
+                if (CheckIsAppDisposed() || token.IsCancellationRequested)
+                    return;
 
-            _reference.LockApplication(true);
+                var previousIcons = _iconGetter;
+                _iconGetter = result.Icons;
+                AllUninstallers = result.Entries;
+                error = result.IconError;
+                result = null;
+                var list = _listView.ListView;
+                list.BeginUpdate();
+                try
+                {
+                    list.SmallImageList = _iconGetter.IconList;
+                    list.SetObjects(AllUninstallers);
+                }
+                finally
+                {
+                    list.EndUpdate();
+                    previousIcons.Dispose();
+                }
+                completed = true;
+            }
+            catch (OperationCanceledException) when (cancellation.IsCancellationRequested)
+            {
+            }
+            catch (Exception ex)
+            {
+                error = ex;
+            }
+            finally
+            {
+                progressTimer.Stop();
+                _refreshCancellation = null;
+                result?.Icons.Dispose();
+                if (!CheckIsAppDisposed())
+                {
+                    _reference.HideScanProgress();
+                    _reference.LockApplication(false);
+                }
+            }
 
             if (CheckIsAppDisposed())
                 return;
 
-            _listView.ListView.SuspendLayout();
-            _listView.ListView.BeginUpdate();
-
-            var dialog = LoadingDialog.Show(_reference, Localisable.LoadingDialogTitlePopulatingList,
-                ListRefreshThread, new Point(-35, -35), ContentAlignment.BottomRight);
-
-            dialog.FormClosed += OnRefreshFinished;
-
-            void OnRefreshFinished(object sender, FormClosedEventArgs args)
+            if (completed)
             {
-                dialog.FormClosed -= OnRefreshFinished;
-
-                if (dialog.Error != null)
-                {
-                    if (dialog.Error is OperationCanceledException)
-                        return;
-                    throw new InvalidOperationException("Uncaught exception in ListRefreshThread", dialog.Error);
-                }
-
-                if (CheckIsAppDisposed() || args.CloseReason == CloseReason.WindowsShutDown ||
-                    args.CloseReason == CloseReason.ApplicationExitCall ||
-                    args.CloseReason == CloseReason.FormOwnerClosing ||
-                    args.CloseReason == CloseReason.TaskManagerClosing) return;
-
-                var oldList = _listView.ListView.SmallImageList;
-                _listView.ListView.SmallImageList = _iconGetter.IconList;
-                oldList?.Dispose();
-
-                _listView.ListView.SetObjects(AllUninstallers);
-
-                try
-                {
-                    _listView.ListView.EndUpdate();
-                    _listView.ListView.ResumeLayout();
-                    _listView.ListView.Focus();
-                }
-                catch (ObjectDisposedException)
-                {
-                }
-
-                _reference.LockApplication(false);
-
-                // Run events
+                _listView.ListView.Focus();
                 ListRefreshIsRunning = false;
-
-                // Set after running events
                 _firstRefresh = false;
             }
+            else
+            {
+                // A failed scan leaves the first-run steps pending until the next successful scan.
+                _listRefreshIsRunning = false;
+            }
 
-            dialog.StartWork();
+            if (error != null && !CheckIsAppDisposed())
+                PremadeDialogs.GenericError(error);
         }
 
         public void InvertSelectedItems(object sender, EventArgs e)
@@ -224,61 +254,47 @@ namespace BulkCrapUninstaller.Functions.ApplicationList
             ChangeSelection(inverted);
         }
 
-        private void ListRefreshThread(LoadingDialogInterface dialogInterface)
+        private static ScanResult ScanApplications(Action<ScanProgress> report, CancellationToken cancellation)
         {
-            dialogInterface.SetSubProgressVisible(true);
-            var progressMax = 0;
-            var uninstallerEntries = ApplicationUninstallerFactory.GetUninstallerEntries(x =>
+            var entries = ApplicationUninstallerFactory.GetUninstallerEntries(progress =>
             {
-                progressMax = x.TotalCount + 1;
-                dialogInterface.SetMaximum(progressMax);
-                dialogInterface.SetProgress(x.CurrentCount, x.Message);
-
-                var inner = x.Inner;
-                if (inner != null)
-                {
-                    dialogInterface.SetSubMaximum(inner.TotalCount);
-                    dialogInterface.SetSubProgress(inner.CurrentCount, inner.Message);
-                }
-                else
-                {
-                    dialogInterface.SetSubMaximum(-1);
-                    dialogInterface.SetSubProgress(0, string.Empty);
-                }
-
-                if (dialogInterface.Abort)
-                    throw new OperationCanceledException();
+                cancellation.ThrowIfCancellationRequested();
+                var item = progress.Inner;
+                double itemFraction = item?.TotalCount > 0 ? Math.Clamp((double)item.CurrentCount / item.TotalCount, 0, 1) : 0;
+                double? fraction = progress.TotalCount > 0
+                    ? Math.Clamp((progress.CurrentCount + itemFraction) / (progress.TotalCount + 1), 0, 0.97)
+                    : null;
+                report(new ScanProgress(fraction, progress.Message, item?.Message));
             });
 
-            dialogInterface.SetProgress(progressMax, Localisable.Progress_Finishing, true);
-            dialogInterface.SetSubMaximum(2);
-            dialogInterface.SetSubProgress(0, string.Empty);
-
+            cancellation.ThrowIfCancellationRequested();
             if (!string.IsNullOrEmpty(Program.InstalledRegistryKeyName))
-                uninstallerEntries.RemoveAll(
+                entries.RemoveAll(
                     x => PathTools.PathsEqual(x.RegistryKeyName, Program.InstalledRegistryKeyName));
 
-            AllUninstallers = uninstallerEntries;
-
-            dialogInterface.SetSubProgress(1, Localisable.Progress_Finishing_Icons);
+            report(new ScanProgress(0.98, Localisable.Progress_Finishing_Icons, null));
+            var icons = new UninstallerIconGetter();
+            Exception iconError = null;
             try
             {
-                _iconGetter.UpdateIconList(AllUninstallers);
+                icons.UpdateIconList(entries);
             }
             catch (Exception ex)
             {
-                PremadeDialogs.GenericError(ex);
+                iconError = ex;
             }
 
-            dialogInterface.SetSubProgressVisible(false);
-
-            // Fixes loading gettings stuck on finalizing if main window is minimized
-            _reference.SafeInvoke(() =>
+            if (cancellation.IsCancellationRequested)
             {
-                if (_reference.WindowState == FormWindowState.Minimized)
-                    _reference.WindowState = FormWindowState.Normal;
-            });
+                icons.Dispose();
+                cancellation.ThrowIfCancellationRequested();
+            }
+            return new ScanResult(entries, icons, iconError);
         }
+
+        internal sealed record ScanProgress(double? Fraction, string Stage, string Item);
+
+        private sealed record ScanResult(IList<ApplicationUninstallerEntry> Entries, UninstallerIconGetter Icons, Exception IconError);
 
         internal void ReassignStartupEntries(bool refreshListView, IEnumerable<StartupEntryBase> items)
         {

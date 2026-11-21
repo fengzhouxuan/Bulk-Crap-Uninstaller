@@ -233,7 +233,6 @@ namespace BulkCrapUninstaller.Forms
             debugToolStripMenuItem = new ToolStripMenuItem();
             createBackupFileDialog = new SaveFileDialog();
             globalHotkeys1 = new Klocman.Subsystems.GlobalHotkeys();
-            splashScreen1 = new Klocman.Forms.SplashScreen();
             usageTracker = new UsageTracker();
             editCustomNoteMenuItem = new ToolStripMenuItem();
             ((ISupportInitialize)splitContainer1).BeginInit();
@@ -1572,12 +1571,6 @@ namespace BulkCrapUninstaller.Forms
             globalHotkeys1.StopWhenFormIsDisabled = true;
             globalHotkeys1.SuppressKeyPresses = true;
             // 
-            // splashScreen1
-            // 
-            splashScreen1.AutomaticallyClose = false;
-            splashScreen1.ContainerControl = this;
-            splashScreen1.SplashScreenImage = Properties.Resources._bcu_logo;
-            // 
             // usageTracker
             // 
             usageTracker.ContainerControl = this;
@@ -1784,7 +1777,6 @@ namespace BulkCrapUninstaller.Forms
         private ToolStripMenuItem toolStripMenuItem15;
         private ToolStripMenuItem toolStripMenuItem16;
         private ToolStripMenuItem openSystemRestoreToolStripMenuItem;
-        private Klocman.Forms.SplashScreen splashScreen1;
         private ToolStripSeparator toolStripSeparator3;
         private ToolStripMenuItem runToolStripMenuItem;
         private ToolStripMenuItem viewUpdatesToolStripMenuItem;

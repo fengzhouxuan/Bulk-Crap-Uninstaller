@@ -460,7 +460,7 @@
     <value>Processing {0}</value>
   </data>
   <data name="Progress_GatherUninstallerInfo" xml:space="preserve">
-    <value>Generating missing uninstaller information...</value>
+    <value>Completing app details…</value>
   </data>
   <data name="Progress_DriveScan" xml:space="preserve">
     <value>Scanning drives for applications...</value>

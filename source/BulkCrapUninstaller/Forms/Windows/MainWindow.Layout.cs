@@ -212,6 +212,8 @@ namespace BulkCrapUninstaller.Forms
         {
             bool useNativeColors = useSystemStyle || SystemInformation.HighContrast;
             ApplyTitleBarTheme(useNativeColors);
+            _scanProgressView.UseNativeColors = useNativeColors;
+            _scanProgressView.Invalidate();
             BackColor = useNativeColors ? SystemColors.Control : WorkspaceBackground;
             settingsSidebarPanel.BackColor = useNativeColors ? SystemColors.Control : Color.White;
             _workspaceHeader.BackColor = BackColor;

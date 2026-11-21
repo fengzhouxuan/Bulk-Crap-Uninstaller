@@ -75,11 +75,9 @@ namespace BulkCrapUninstaller.Forms
 
         public MainWindow()
         {
-            Opacity = 0;
-            Application.DoEvents();
-
             InitializeComponent();
             InitializeWorkspaceLayout();
+            InitializeScanProgress();
             InitializeTitleBar();
 
             // Setup settings
@@ -1487,9 +1485,7 @@ namespace BulkCrapUninstaller.Forms
                     { PremadeDialogs.GenericError(ex); }
                 }
 
-                splashScreen1.CloseSplashScreen();
-
-                // Display the legend first so it is hidden under the splash
+                // Position the legend before displaying it over the list.
                 _listLegendWindow.Opacity = 0;
                 SetupAndShowLegendWindow();
                 // Needed in case main window starts maximized

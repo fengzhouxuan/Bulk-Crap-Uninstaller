@@ -3356,12 +3356,6 @@
   <data name="&gt;&gt;globalHotkeys1.Type" xml:space="preserve">
     <value>Klocman.Subsystems.GlobalHotkeys, KlocTools, Culture=neutral, PublicKeyToken=null</value>
   </data>
-  <data name="&gt;&gt;splashScreen1.Name" xml:space="preserve">
-    <value>splashScreen1</value>
-  </data>
-  <data name="&gt;&gt;splashScreen1.Type" xml:space="preserve">
-    <value>Klocman.Forms.SplashScreen, KlocTools, Culture=neutral, PublicKeyToken=null</value>
-  </data>
   <data name="&gt;&gt;usageTracker.Name" xml:space="preserve">
     <value>usageTracker</value>
   </data>
@@ -3374,9 +3368,6 @@
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.Form, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <metadata name="splashScreen1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>1175, 17</value>
-  </metadata>
   <metadata name="usageTracker.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 60</value>
   </metadata>
@@ -3390,4 +3381,5 @@
   <data name="CaptionMaximize" xml:space="preserve"><value>Maximize</value></data>
   <data name="CaptionRestore" xml:space="preserve"><value>Restore</value></data>
   <data name="CaptionClose" xml:space="preserve"><value>Close</value></data>
+  <data name="WorkspaceScanTitle" xml:space="preserve"><value>Scanning installed apps</value></data>
 </root>
