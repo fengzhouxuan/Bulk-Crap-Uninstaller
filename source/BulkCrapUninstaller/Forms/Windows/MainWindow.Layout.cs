@@ -10,7 +10,8 @@ namespace BulkCrapUninstaller.Forms
     {
         private static readonly Color WorkspaceBackground = Color.FromArgb(241, 245, 249);
         private static readonly Color SidebarBackground = Color.FromArgb(248, 250, 252);
-        private static readonly Color HeaderBackground = Color.FromArgb(23, 36, 53);
+        private static readonly Color HeaderBackground = Color.FromArgb(221, 235, 247);
+        private static readonly Color HeadingText = Color.FromArgb(23, 36, 53);
         private static readonly Color WorkspaceBorder = Color.FromArgb(215, 224, 233);
         private static readonly Color PrimaryAction = Color.FromArgb(7, 111, 103);
         private static readonly Color PrimaryActionHover = Color.FromArgb(6, 84, 79);
@@ -51,7 +52,6 @@ namespace BulkCrapUninstaller.Forms
             label1.Dock = DockStyle.Fill;
             label1.AutoSize = false;
             label1.AutoEllipsis = true;
-            label1.UseCompatibleTextRendering = true;
             label1.TextAlign = ContentAlignment.MiddleLeft;
             label1.Margin = Padding.Empty;
             _workspaceHeader.Controls.Add(label1, 0, 0);
@@ -143,8 +143,8 @@ namespace BulkCrapUninstaller.Forms
             BackColor = useNativeColors ? SystemColors.Control : WorkspaceBackground;
             settingsSidebarPanel.BackColor = useNativeColors ? SystemColors.Control : SidebarBackground;
             _workspaceHeader.BackColor = useNativeColors ? SystemColors.Control : HeaderBackground;
-            label1.ForeColor = useNativeColors ? SystemColors.ControlText : Color.White;
-            _searchSurface.BackColor = useNativeColors ? SystemColors.Window : SidebarBackground;
+            label1.ForeColor = useNativeColors ? SystemColors.ControlText : HeadingText;
+            _searchSurface.BackColor = useNativeColors ? SystemColors.Window : Color.White;
             var searchField = filterEditor1.SearchField;
             searchField.BackColor = _searchSurface.BackColor;
             searchField.InactiveSearchColor = useNativeColors ? SystemColors.GrayText : MutedText;
