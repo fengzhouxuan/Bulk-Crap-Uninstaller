@@ -90,7 +90,7 @@ namespace BulkCrapUninstallerTests.Functions
 
             var result = ApplicationListConstants.GetApplicationIntegrityText(entry);
 
-            Assert.AreEqual(UninstallTools.Properties.Localisation.Confidence_Good, result);
+            Assert.AreEqual(Localisable.IntegrityColumn_Good, result);
         }
 
         [TestMethod]
