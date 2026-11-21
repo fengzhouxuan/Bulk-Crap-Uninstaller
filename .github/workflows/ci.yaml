@@ -85,4 +85,12 @@ jobs:
           test -f "${base}_setup.exe"
           test -f "${base}_portable.zip"
           sha256sum --check SHA256SUMS.txt
+          if existing=$(gh release view "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" --json isDraft,assets 2>/dev/null); then
+            jq -e --arg setup "${base}_setup.exe" --arg portable "${base}_portable.zip" '
+              (.isDraft | not) and ([.assets[].name] as $assets
+                | all($setup, $portable, "SHA256SUMS.txt"; . as $file | $assets | index($file) != null))
+            ' <<< "$existing" > /dev/null
+            echo "Release $GITHUB_REF_NAME is already published with all expected files."
+            exit 0
+          fi
           gh release create "$GITHUB_REF_NAME" "${base}_setup.exe" "${base}_portable.zip" SHA256SUMS.txt --repo "$GITHUB_REPOSITORY" --verify-tag --latest --title "Vela $version" --notes "Windows x64 installer and portable ZIP with the .NET runtime included. The binaries are unsigned. SHA256SUMS.txt contains both package checksums."
