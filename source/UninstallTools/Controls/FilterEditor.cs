@@ -1,6 +1,7 @@
 ﻿/*
     Copyright (c) 2017 Marcin Szeniak (https://github.com/Klocman/)
     Apache License Version 2.0
+    Modified for the BCUninstaller main window redesign.
 */
 
 using System;
@@ -16,6 +17,10 @@ namespace UninstallTools.Controls
 {
     public partial class FilterEditor : UserControl
     {
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public SearchBox SearchField => searchBox1;
+
         public event EventHandler FocusSearchTarget
         {
             add { searchBox1.FocusSearchTarget += value; }

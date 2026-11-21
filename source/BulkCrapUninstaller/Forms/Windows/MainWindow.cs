@@ -1,6 +1,7 @@
 ﻿/*
     Copyright (c) 2017 Marcin Szeniak (https://github.com/Klocman/)
     Apache License Version 2.0
+    Modified for the BCUninstaller main window redesign.
 */
 
 using BrightIdeasSoftware;
@@ -78,6 +79,7 @@ namespace BulkCrapUninstaller.Forms
             Application.DoEvents();
 
             InitializeComponent();
+            InitializeWorkspaceLayout();
 
             // Setup settings
             _setMan = new SettingTools(Settings.Default.SettingBinder, this);
@@ -169,6 +171,7 @@ namespace BulkCrapUninstaller.Forms
             Console.WriteLine(MainTitleBarText);
 
             _styleController = new WindowStyleController(this);
+            ApplyWorkspaceTheme(_setMan.Selected.Settings.WindowUseSystemTheme);
 
             // Initialize the status bar
             toolStripLabelStatus_TextChanged(this, EventArgs.Empty);
@@ -592,7 +595,11 @@ namespace BulkCrapUninstaller.Forms
                 x => x.ToolbarsShowSettings, this);
             settings.Subscribe((x, y) => toolStrip.Visible = y.NewValue,
                 x => x.ToolbarsShowToolbar, this);
-            settings.Subscribe((x, y) => _styleController.SetStyles(y.NewValue),
+            settings.Subscribe((x, y) =>
+                {
+                    _styleController.SetStyles(y.NewValue);
+                    ApplyWorkspaceTheme(y.NewValue);
+                },
                 x => x.WindowUseSystemTheme, this);
             settings.Subscribe((x, y) => statusStrip1.Visible = y.NewValue,
                 x => x.ToolbarsShowStatusbar, this);
@@ -645,6 +652,7 @@ namespace BulkCrapUninstaller.Forms
             bool ulistOpen = IsAdvancedFilteringEnabled;
             splitContainer1.Panel1Collapsed = !ulistOpen;
             splitContainer1.Panel1.Enabled = ulistOpen;
+            filterEditor1.SearchField.Enabled = !ulistOpen;
 
             var sidebarOpen = _setMan.Selected.Settings.ToolbarsShowSettings && !ulistOpen;
             settingsSidebarPanel.Visible = sidebarOpen;
@@ -1150,9 +1158,8 @@ namespace BulkCrapUninstaller.Forms
 
         private void searchToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!_setMan.Selected.Settings.ToolbarsShowSettings)
-                _setMan.Selected.Settings.ToolbarsShowSettings = true;
-            filterEditor1.FocusSearchbox();
+            if (!IsAdvancedFilteringEnabled)
+                filterEditor1.FocusSearchbox();
         }
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1297,6 +1304,9 @@ namespace BulkCrapUninstaller.Forms
             var anySelected = _listView.SelectedUninstallerCount > 0;
             basicOperationsToolStripMenuItem.Enabled = anySelected;
             advancedOperationsToolStripMenuItem.Enabled = anySelected;
+            toolStripButtonUninstall.Enabled = anySelected;
+            toolStripButton2.Enabled = anySelected;
+            toolStripButtonProperties.Enabled = anySelected;
 
             toolStripButtonModify.Enabled = _listView.SelectedUninstallerCount == 1 &&
                 _listView.SelectedUninstallers.Count(x => !string.IsNullOrEmpty(x.ModifyPath)) == 1;
