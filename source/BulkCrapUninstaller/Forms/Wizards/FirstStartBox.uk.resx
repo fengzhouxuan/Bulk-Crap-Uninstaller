@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
+  <!-- Modified the first-run wizard branding for Vela. -->
   <!--
     Microsoft ResX Schema
 
@@ -136,7 +137,7 @@
     <value>Завершити налаштування</value>
   </data>
   <data name="p5finishContact.Text" xml:space="preserve">
-    <value>Тепер ви можете почати користуватися BCUninstaller. Якщо у вас виникли запитання або ви хочете запропонувати нову функцію, перейдіть за посиланням нижче.</value>
+    <value>Тепер ви можете почати користуватися Vela. Якщо у вас виникли запитання або ви хочете запропонувати нову функцію, перейдіть за посиланням нижче.</value>
   </data>
   <data name="p5LinkContact.Text" xml:space="preserve">
     <value>Відкрити форму зв'язку</value>
@@ -154,7 +155,7 @@
     <value>Доступ до мережі</value>
   </data>
   <data name="p4netDesc.Text" xml:space="preserve">
-    <value>BCUninstaller може намагатися підключитися до інтернету з таких причин:</value>
+    <value>Vela може намагатися підключитися до інтернету з таких причин:</value>
   </data>
   <data name="p4netDesc1.Text" xml:space="preserve">
     <value>● Для пошуку оновлень програми.</value>
@@ -169,7 +170,7 @@
     <value>● Для отримання та надсилання оцінок програм</value>
   </data>
   <data name="p4netErrors.Text" xml:space="preserve">
-    <value>Щоразу, коли виникає помилка, вас запитають, чи хочете ви надіслати звіт про неї. Ви можете перевірити, які дані надсилаються у звітах про помилки та використання, переглянувши відповідні XML-файли в каталозі BCUninstaller. Надіслані дані не передаються третім особам.</value>
+    <value>Щоразу, коли виникає помилка, вас запитають, чи хочете ви надіслати звіт про неї. Ви можете перевірити, які дані надсилаються у звітах про помилки та використання, переглянувши відповідні XML-файли в каталозі Vela. Надіслані дані не передаються третім особам.</value>
   </data>
   <data name="checkBoxUpdateSearch.Text" xml:space="preserve">
     <value>Автоматично шукати оновлення під час запуску програми</value>
@@ -181,7 +182,7 @@
     <value>Автоматично надсилати анонімну статистику використання</value>
   </data>
   <data name="p4netUsageAdd.Text" xml:space="preserve">
-    <value>Надсилання цієї статистики допоможе покращити BCUninstaller.</value>
+    <value>Надсилання цієї статистики допоможе покращити Vela.</value>
   </data>
   <data name="checkBoxRatings.Text" xml:space="preserve">
     <value>Увімкнути користувацькі оцінки програм</value>
@@ -196,7 +197,7 @@
     <value>Пошкоджені або відсутні деінсталятори</value>
   </data>
   <data name="pCorViewInvalid.Text" xml:space="preserve">
-    <value>У деяких випадках деінсталятори можуть бути пошкоджені, що робить видалення неможливим. BCUninstaller може легко видалити такі записи за допомогою параметра "Видалити вручну".</value>
+    <value>У деяких випадках деінсталятори можуть бути пошкоджені, що робить видалення неможливим. Vela може легко видалити такі записи за допомогою параметра "Видалити вручну".</value>
   </data>
   <data name="checkBoxInvalidTest.Text" xml:space="preserve">
     <value>Підсвічувати недійсні деінсталятори</value>
@@ -221,7 +222,7 @@
     <value>Досвідчені користувачі</value>
   </data>
   <data name="p3advDesc.Text" xml:space="preserve">
-    <value>Хоча BCUninstaller можна використовувати як звичайний деінсталятор, більшість його функцій розраховані на досвідчених користувачів. Дійте обережно!</value>
+    <value>Хоча Vela можна використовувати як звичайний деінсталятор, більшість його функцій розраховані на досвідчених користувачів. Дійте обережно!</value>
   </data>
   <data name="p3advSyscompTitle.Text" xml:space="preserve">
     <value>Системні компоненти</value>
@@ -283,7 +284,7 @@
 Попередження: перевірка може тривати досить довго.</value>
   </data>
   <data name="p1welcomeHeading.Text" xml:space="preserve">
-    <value>Ласкаво просимо до BCUninstaller!</value>
+    <value>Ласкаво просимо до Vela!</value>
   </data>
   <data name="p1welcomeSubheading.Text" xml:space="preserve">
     <value>Цей майстер проведе короткий огляд і допоможе налаштувати програму.</value>
@@ -292,23 +293,22 @@
     <value>Обрана мова</value>
   </data>
   <data name="p1languageDesc.Text" xml:space="preserve">
-    <value>Ви можете примусово встановити для BCUninstaller певну локалізацію, якщо мова за замовчуванням визначена неправильно. Для застосування нової мови програму буде перезапущено.</value>
+    <value>Ви можете примусово встановити для Vela певну локалізацію, якщо мова за замовчуванням визначена неправильно. Для застосування нової мови програму буде перезапущено.</value>
   </data>
   <data name="buttonLanguageApply.Text" xml:space="preserve">
     <value>Застосувати</value>
   </data>
   <data name="p1languageExtradetails.Text" xml:space="preserve">
-    <value>Якщо ви готові допомогти з перекладом BCUninstaller вашою мовою, натисніть посилання нижче, щоб зв'язатися зі мною. Будь-яка допомога буде щиро прийнята з вдячністю!</value>
+    <value>Якщо ви готові допомогти з перекладом Vela вашою мовою, натисніть посилання нижче, щоб зв'язатися зі мною. Будь-яка допомога буде щиро прийнята з вдячністю!</value>
   </data>
   <data name="p1linkLabelContact.Text" xml:space="preserve">
     <value>Відкрити форму зв'язку</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>Ласкаво просимо до BCUninstaller</value>
+    <value>Ласкаво просимо до Vela</value>
   </data>
   <data name="label2.Text" xml:space="preserve">
-    <value>ulk crap
-uninstaller</value>
+    <value>Vela</value>
     <comment>The missing B is in an image next to the text</comment>
   </data>
   <data name="labelProgress.Text" xml:space="preserve">

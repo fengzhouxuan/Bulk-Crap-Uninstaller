@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
+  <!-- Modified the first-run wizard branding for Vela. -->
   <!-- 
     Microsoft ResX Schema 
     
@@ -136,7 +137,7 @@
     <value>Setup voltooien</value>
   </data>
   <data name="p5finishContact.Text" xml:space="preserve">
-    <value>U kunt de BCUninstaller nu starten.
+    <value>U kunt de Vela nu starten.
 Als u vragen hebt of een nieuwe functie wilt voorstellen, gelieve onderstaande link te gebruiken.</value>
   </data>
   <data name="p5LinkContact.Text" xml:space="preserve">
@@ -155,7 +156,7 @@ Als u vragen hebt of een nieuwe functie wilt voorstellen, gelieve onderstaande l
     <value>Netwerk toegang</value>
   </data>
   <data name="p4netDesc.Text" xml:space="preserve">
-    <value>BCUninstaller kan proberen om verbinding te maken met het internet, om de volgende redenen:</value>
+    <value>Vela kan proberen om verbinding te maken met het internet, om de volgende redenen:</value>
   </data>
   <data name="p4netDesc1.Text" xml:space="preserve">
     <value>● Voor het zoeken naar programma updates</value>
@@ -184,7 +185,7 @@ Controleer daarvoor de betreffende XML-bestanden in de BCUinstaller map.</value>
     <value>Automatisch anonieme gebruiks statistieken versturen</value>
   </data>
   <data name="p4netUsageAdd.Text" xml:space="preserve">
-    <value>Deze statistieken helpen om BCUninstaller te verbeteren.</value>
+    <value>Deze statistieken helpen om Vela te verbeteren.</value>
   </data>
   <data name="checkBoxRatings.Text" xml:space="preserve">
     <value>Inschakelen gebruikers beoordelingen voor programma's.</value>
@@ -200,7 +201,7 @@ Controleer daarvoor de betreffende XML-bestanden in de BCUinstaller map.</value>
   </data>
   <data name="pCorViewInvalid.Text" xml:space="preserve">
     <value>In sommige gevallen kunnen de-installers beschadigd zijn, zodat men niet kan de-installeren.
-BCUninstaller kan deze registraties met de optie "Handmatig de-installeren" verwijderen.</value>
+Vela kan deze registraties met de optie "Handmatig de-installeren" verwijderen.</value>
   </data>
   <data name="checkBoxInvalidTest.Text" xml:space="preserve">
     <value>Beschadigde de-installers accentueren</value>
@@ -225,7 +226,7 @@ Ontbreekt de originele de-installer, dan kunt u de optie "Handmatig de-instalere
     <value>Ervaren gebruikers</value>
   </data>
   <data name="p3advDesc.Text" xml:space="preserve">
-    <value>Hoewel BCUninstaller als standaard de-installer kan worden gebruikt, zijn de meeste functies bedoeld voor ervaren gebruikers. Handel met voorzichtigheid!</value>
+    <value>Hoewel Vela als standaard de-installer kan worden gebruikt, zijn de meeste functies bedoeld voor ervaren gebruikers. Handel met voorzichtigheid!</value>
   </data>
   <data name="p3advSyscompTitle.Text" xml:space="preserve">
     <value>Systeem componenten</value>
@@ -287,7 +288,7 @@ U kunt alle kolommen opnieuw ordenen.</value>
 Let op: de verificatie kan lang duren.</value>
   </data>
   <data name="p1welcomeHeading.Text" xml:space="preserve">
-    <value>Welkom bij BCUninstaller!</value>
+    <value>Welkom bij Vela!</value>
   </data>
   <data name="p1welcomeSubheading.Text" xml:space="preserve">
     <value>Deze assistent geeft u een kort overzicht en helpt u bij het configureren van dit programma.</value>
@@ -296,25 +297,24 @@ Let op: de verificatie kan lang duren.</value>
     <value>Gekozen taal</value>
   </data>
   <data name="p1languageDesc.Text" xml:space="preserve">
-    <value>Kies voor BCUninstaller uw taal.
+    <value>Kies voor Vela uw taal.
 Na een herstart wordt de gekozen taal overgenomen.</value>
   </data>
   <data name="buttonLanguageApply.Text" xml:space="preserve">
     <value>Toepassen</value>
   </data>
   <data name="p1languageExtradetails.Text" xml:space="preserve">
-    <value>Als u wilt helpen met de vertaling van BCUninstaller in uw taal, klik dan op de link hieronder om contact met mij op te nemen. Alle hulp is welkom!</value>
+    <value>Als u wilt helpen met de vertaling van Vela in uw taal, klik dan op de link hieronder om contact met mij op te nemen. Alle hulp is welkom!</value>
   </data>
   <data name="p1linkLabelContact.Text" xml:space="preserve">
     <value>Contactformulier openen</value>
   </data>
   <data name="label2.Text" xml:space="preserve">
-    <value>ulk crap
-uninstaller</value>
+    <value>Vela</value>
     <comment>The missing B is in an image next to the text</comment>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>Welkom bij BCUninstaller</value>
+    <value>Welkom bij Vela</value>
   </data>
   <data name="labelProgress.Text" xml:space="preserve">
     <value>1 / 6</value>
