@@ -39,7 +39,7 @@ using UninstallTools.Uninstaller;
 
 namespace BulkCrapUninstaller.Forms
 {
-    internal sealed partial class MainWindow : Form
+    internal sealed partial class MainWindow : VelaWindow
     {
         private string MainTitleBarText { get; }
 
@@ -220,8 +220,6 @@ namespace BulkCrapUninstaller.Forms
         protected override void OnDpiChanged(DpiChangedEventArgs e)
         {
             base.OnDpiChanged(e);
-            if (_workspaceTitleBar != null)
-                SizeTitleBar();
 
             try
             {
@@ -476,8 +474,9 @@ namespace BulkCrapUninstaller.Forms
                 UseWaitCursor = value;
 
                 foreach (Control control in Controls)
-                    if (control != _workspaceTitleBar)
+                    if (control != VelaTitleBarControl)
                         control.Enabled = !value;
+                VelaTitleBarControl.UseWaitCursor = false;
 
                 Refresh();
             });
