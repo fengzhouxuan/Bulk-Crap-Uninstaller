@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -591,4 +591,10 @@
   <data name="autosizeAllColumnsToolStripMenuItem.Text" xml:space="preserve">
     <value>重設所有欄位</value>
   </data>
+  <!-- Added labels for the redesigned main window. -->
+  <data name="WorkspaceInstalledApps" xml:space="preserve"><value>已安裝的應用程式</value></data>
+  <data name="WorkspaceFilters" xml:space="preserve"><value>篩選</value></data>
+  <data name="WorkspaceMenu" xml:space="preserve"><value>選單</value></data>
+  <data name="WorkspaceSelection" xml:space="preserve"><value>選取</value></data>
+  <data name="WorkspaceRefresh" xml:space="preserve"><value>重新整理</value></data>
 </root>

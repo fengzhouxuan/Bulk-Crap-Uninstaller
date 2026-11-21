@@ -84,6 +84,7 @@ namespace BulkCrapUninstaller.Forms
             // Setup settings
             _setMan = new SettingTools(Settings.Default.SettingBinder, this);
             _setMan.LoadSettings();
+            _certificateColumnWasEnabled = olvColumnCertificate.IsVisible;
             BindControlsToSettings();
 
             // Finish up setting controls and window, suspend after settings have loaded
@@ -357,7 +358,7 @@ namespace BulkCrapUninstaller.Forms
             _uninstallerListPostProcesser.Dispose();
         }
 
-        private static bool _certificateColumnWasEnabled = true;
+        private bool _certificateColumnWasEnabled;
         private void OnTestCertificatesChanged(object x, SettingChangedEventArgs<bool> y)
         {
             if (!y.NewValue)
@@ -657,6 +658,8 @@ namespace BulkCrapUninstaller.Forms
             var sidebarOpen = _setMan.Selected.Settings.ToolbarsShowSettings && !ulistOpen;
             settingsSidebarPanel.Visible = sidebarOpen;
             settingsSidebarPanel.Enabled = sidebarOpen;
+            _filtersMenuItem.Checked = sidebarOpen;
+            _filtersMenuItem.Enabled = !ulistOpen;
 
             OnApplicationListVisibleItemsChanged(sender, e);
 
