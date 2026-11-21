@@ -151,7 +151,8 @@ namespace UninstallTools.Controls
 
         private void OnComparisonMethodChanged(object sender, EventArgs e)
         {
-            if (!IsDisposed && !Disposing && Enabled)
+            // The main window hosts the search field outside the optional filter sidebar.
+            if (!IsDisposed && !Disposing && (Enabled || searchBox1.Enabled))
                 ComparisonMethodChanged?.Invoke(sender, e);
         }
 
